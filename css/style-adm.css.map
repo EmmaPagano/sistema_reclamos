@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,gBAAgB,AAAA,CACZ,UAAU,CAAE,IAAI,CACnB,AAED,AAAA,cAAc,AAAA,CACV,UAAU,CAAE,IAAI,CAChB,UAAU,CAAE,2BAA2B,CAAC,SAAS,CAAC,MAAM,CAAC,MAAM,CAAC,SAAS,CACzE,eAAe,CAAE,KAAK,CACtB,qBAAqB,CAAE,QAAQ,CAClC",
+    "sources": [
+        "../scss/style-adm.scss"
+    ],
+    "names": [],
+    "file": "style-adm.css"
+}

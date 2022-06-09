@@ -43,60 +43,15 @@ $categorias = $cmd->fetchAll();
             <div class="categorias mt-5">
                 <div class="my-3 row">
                     <?php
-                    $i=1;
                     foreach ($categorias as $categoria) {
-                        echo '
-                            <div class="col-md-4 categoria text-center">
-                            <img src="img/'.$categoria["imgCategoria"].'" class="img-fluid categoria-icono" alt="">
-                            <p class="categoria-titulo mt-3">'.$categoria["categoria"].'</p>
-                            </div>'
+                        echo '<div class="col-md-4 categoria text-center">
+                                <img src="img/'.$categoria["imgCategoria"].'" class="img-fluid categoria-icono" alt="">
+                                <p class="categoria-titulo mt-3">'.$categoria["categoria"].'</p>
+                                </div>'
                         ;
                     } 
                     ?>
                 </div>
-
-                <!-- <div class="row">
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/alumbrado.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Alumbrado</p>
-                    </div>
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/animales.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Animales</p>
-                    </div>
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/arbolado.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Arbolado</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/educacion.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Educación</p>
-                    </div>
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/espaciospublicos.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Espacios públicos</p>
-                    </div>
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/limpiezayrecoleccion.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Limpieza y recolección</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/salud.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Salud</p>
-                    </div>
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/seguridad.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Seguridad</p>
-                    </div>
-                    <div class="col-md-4 categoria text-center">
-                        <img src="img/transito.png" class="img-fluid categoria-icono" alt="">
-                        <p class="categoria-titulo mt-3">Tránsito</p>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section>
