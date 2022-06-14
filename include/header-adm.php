@@ -1,3 +1,4 @@
+<?php include('config.php'); ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -30,7 +31,7 @@
       crossorigin="anonymous"
     />
     <!-- ESTILOS PERSONALIZADOS -->
-    <link rel="stylesheet" href="../css/style-adm.css" />
+    <link rel="stylesheet" href="<?php echo RUTARAIZ;?>css/style-adm.css" />
 
     <title>Sistema de reclamos - Panel administrativo</title>
   </head>
@@ -57,15 +58,15 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item px-lg-4 <?php if(!empty($_SESSION['idUser'])) { echo 'd-none'; } ?>">
-                <a class="nav-link <?php if($title == 'login'){ echo 'active'; } ?> text-uppercase" href="login-adm.php">Login</a>
+                <a class="nav-link <?php if($title == 'login'){ echo 'active'; } ?> text-uppercase" href="<?php echo RUTARAIZ; ?>adm/login-adm.php">Login</a>
               </li>
               <li class="nav-item px-lg-4">
-                <a class="nav-link <?php if($title == 'panel'){ echo 'active'; } ?> text-uppercase" href="panel-adm.php"
+                <a class="nav-link <?php if($title == 'panel'){ echo 'active'; } ?> text-uppercase" href="<?php echo RUTARAIZ; ?>adm/panel-adm.php"
                   >Panel</a
                 >
               </li>
               <li class="nav-item px-lg-4 <?php if(empty($_SESSION['idUser'])) { echo 'd-none'; } ?>">
-                <a href="cerrar-sesion.php" class="nav-link text-uppercase" 
+                <a href="<?php echo RUTARAIZ; ?>adm/cerrar-sesion.php" class="nav-link text-uppercase" 
                   >Cerrar Sesión</a
                 >
               </li>

@@ -1,7 +1,7 @@
  <!--FOOTER-->
- <footer  class="footer pb-3 bg-dark">
+ <footer  class="footer py-3 bg-dark">
       <div class="copyright text-center">
-        <p class="text-white">Copyright © 2022. Todos los derechos reservados</p>
+        <p class="text-white mb-1">Copyright © 2022. Todos los derechos reservados</p>
         <p class="text-white mb-0">Diseño y Desarrollo por Emmanuel Pagano</p>
       </div>
     </footer>

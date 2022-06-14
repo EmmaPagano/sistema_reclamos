@@ -2,7 +2,7 @@
 session_start();
 $title = 'panel';
 
-if(empty($_SESSION['idUser'])){
+if(!isset($_SESSION['idUser'])){
     header('location:../index.php');
 }
 ?>
@@ -16,8 +16,8 @@ if(empty($_SESSION['idUser'])){
             <div class="col-md-4 text-center">
                 <h3 class="mb-3 text-white">Categorías</h3>
                 <div class="botonera d-flex justify-content-center">
-                    <a class="btn btn-outline-secondary me-3" href="">Nuevo</a>
-                    <a class="btn btn-outline-secondary ms-3" href="">Listar</a>
+                    <a class="btn btn-outline-secondary me-3" href="categorias/alta-categoria.php">Nuevo</a>
+                    <a class="btn btn-outline-secondary ms-3" href="categorias/listar-categoria.php">Listar</a>
                 </div>
             </div>
             <div class="col-md-4 text-center">

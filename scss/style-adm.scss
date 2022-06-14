@@ -7,4 +7,21 @@
     background: url("../img/fondo-adm.jpg") no-repeat bottom center #8ba2f5a8 ;
     background-size: cover;
     background-blend-mode: multiply;
+    .row{
+        background-color: #21252994;
+        padding: 1rem 0;
+        .btn-outline-secondary{
+            color: white;
+            border-color: white;
+        }
+    }
+}
+
+.listado-abm{
+    td{
+        vertical-align: middle;
+        img{
+            max-width: 80px;
+        }
+    }
 }

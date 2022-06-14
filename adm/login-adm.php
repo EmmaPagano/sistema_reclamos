@@ -4,7 +4,7 @@ session_start();
 $title = 'login';
 
 
-if(!empty($_SESSION['idUser'])){
+if(isset($_SESSION['idUser'])){
     header('location:panel-adm.php');
 }
 
