@@ -23,8 +23,8 @@ if(!isset($_SESSION['idUser'])){
             <div class="col-md-4 text-center">
                 <h3 class="mb-3 text-white">Subcategorías</h3>
                 <div class="botonera d-flex justify-content-center">
-                    <a class="btn btn-outline-secondary me-3" href="">Nuevo</a>
-                    <a class="btn btn-outline-secondary ms-3" href="">Listar</a>
+                    <a class="btn btn-outline-secondary me-3" href="subcategorias/alta-subcategoria.php">Nuevo</a>
+                    <a class="btn btn-outline-secondary ms-3" href="subcategorias/listar-subcategoria.php">Listar</a>
                 </div>
             </div>
             <div class="col-md-4 text-center">
