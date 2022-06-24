@@ -31,7 +31,7 @@ if(!isset($_SESSION['idUser'])){
                 <h3 class="mb-3 text-white">Reclamos</h3>
                 <div class="botonera d-flex justify-content-center">
                     <a class="btn btn-outline-secondary me-3" href="">Nuevo</a>
-                    <a class="btn btn-outline-secondary ms-3" href="">Listar</a>
+                    <a class="btn btn-outline-secondary ms-3" href="reclamos/listar-reclamo.php">Listar</a>
                 </div>
             </div>
         </div>
