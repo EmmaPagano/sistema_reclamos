@@ -18,5 +18,9 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <!-- LIGHTBOX JS-->
+    <script src="<?php echo RUTARAIZ;?>lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
+
+
   </body>
 </html>

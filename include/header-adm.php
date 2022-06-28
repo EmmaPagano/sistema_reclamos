@@ -15,6 +15,10 @@
       href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;400&display=swap"
       rel="stylesheet"
     />
+
+    <!-- LIGHTBOX GALERIA DE IMAGENES -->
+    <link rel="stylesheet" href="<?php echo RUTARAIZ;?>lightbox2/dist/css/lightbox.css">
+
     <!-- BOOTSTRAP -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
