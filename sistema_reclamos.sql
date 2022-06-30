@@ -16,6 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `calles`
+--
+
+DROP TABLE IF EXISTS `calles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `calles` (
+  `idCalle` int(11) NOT NULL AUTO_INCREMENT,
+  `calle` varchar(250) NOT NULL,
+  PRIMARY KEY (`idCalle`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `calles`
+--
+
+LOCK TABLES `calles` WRITE;
+/*!40000 ALTER TABLE `calles` DISABLE KEYS */;
+INSERT INTO `calles` VALUES (1,'Av. Vaccarezza'),(2,'9 de Julio'),(3,'Raúl Lozza');
+/*!40000 ALTER TABLE `calles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `categorias`
 --
 
@@ -28,7 +52,7 @@ CREATE TABLE `categorias` (
   `descripcion` varchar(300) NOT NULL,
   `imgCategoria` varchar(300) NOT NULL,
   PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +103,7 @@ CREATE TABLE `fotos_reclamos` (
   PRIMARY KEY (`idFoto`),
   KEY `FK_reclamo` (`idReclamo`),
   CONSTRAINT `relacion_foto_reclamo` FOREIGN KEY (`idReclamo`) REFERENCES `reclamos` (`idReclamo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +112,7 @@ CREATE TABLE `fotos_reclamos` (
 
 LOCK TABLES `fotos_reclamos` WRITE;
 /*!40000 ALTER TABLE `fotos_reclamos` DISABLE KEYS */;
-INSERT INTO `fotos_reclamos` VALUES (1,'2.jpg',20002),(2,'3.jpg',20002);
+INSERT INTO `fotos_reclamos` VALUES (1,'2.jpg',20002),(2,'3.jpg',20002),(5,'1.jpg',20004),(6,'2.jpg',20004),(7,'3.jpg',20004);
 /*!40000 ALTER TABLE `fotos_reclamos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,6 +129,8 @@ CREATE TABLE `reclamos` (
   `fechaReclamo` date NOT NULL,
   `nombreVecino` varchar(250) NOT NULL,
   `dni` int(8) NOT NULL,
+  `idCalle` int(11) NOT NULL,
+  `altura` int(11) NOT NULL,
   `direccionReclamo` varchar(250) NOT NULL,
   `telefonoVecino` varchar(250) NOT NULL,
   `correoVecino` varchar(250) NOT NULL,
@@ -113,6 +139,8 @@ CREATE TABLE `reclamos` (
   PRIMARY KEY (`idReclamo`),
   KEY `FK_estado` (`idEstado`),
   KEY `FK_subcategoria` (`idSubcategoria`),
+  KEY `FK_calle` (`idCalle`),
+  CONSTRAINT `relacion_reclamo_calle` FOREIGN KEY (`idCalle`) REFERENCES `calles` (`idCalle`),
   CONSTRAINT `relacion_reclamo_estado` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`idEstado`),
   CONSTRAINT `relacion_reclamo_subcategoria` FOREIGN KEY (`idSubcategoria`) REFERENCES `subcategorias` (`idSubcategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20005 DEFAULT CHARSET=utf8mb4;
@@ -124,7 +152,7 @@ CREATE TABLE `reclamos` (
 
 LOCK TABLES `reclamos` WRITE;
 /*!40000 ALTER TABLE `reclamos` DISABLE KEYS */;
-INSERT INTO `reclamos` VALUES (20002,10,'2022-06-16','juan',0,'fddffd','dfdfddf','ddd',1,'fgfggf'),(20003,6,'2022-06-15','agustina gonzales',35000111,'av falsa 1200','2346 1544444','agustina@gmail.com',1,'sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss'),(20004,13,'2022-05-11','Francisco JJJJJ',10849990,'Circ Gonzalez 123','011 15666666','fran@hotmaill.com',1,'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+INSERT INTO `reclamos` VALUES (20002,7,'2022-06-16','juan',0,1,0,'av alberti 1111','11 22334455','ddd@hhhhhh',3,'llllllllllllllllllllllllllllll'),(20003,11,'2022-06-15','agustina gonzales',35000111,2,0,'av falsa 999999999999999','2346 150000000000000','agustina@gmail.com.ar',1,'////////////////////////////////////////////7'),(20004,13,'2022-05-11','Francisco JJJJJ',10849990,3,0,'Circ Gonzalez 123','011 15666666','fran@hotmaill.com',2,'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
 /*!40000 ALTER TABLE `reclamos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-24 14:24:48
+-- Dump completed on 2022-06-30 15:49:30

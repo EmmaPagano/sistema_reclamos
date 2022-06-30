@@ -13,10 +13,7 @@ $cmd = $conexion->prepare('SELECT * FROM categorias ORDER BY categoria');
 $cmd->execute();
 $categorias = $cmd->fetchAll();
 
-//Carga de subcategorías base de datos
-$cmd = $conexion->prepare('SELECT * FROM subcategorias ORDER BY subcategoria');
-$cmd->execute();
-$subcategorias = $cmd->fetchAll();
+
 
 //Carga de estados base de datos
 $cmd = $conexion->prepare('SELECT * FROM estados ORDER BY idEstado');
@@ -46,6 +43,11 @@ if(isset($_GET['id'])){
 
 }
 
+//Carga de subcategorías base de datos
+$cmd = $conexion->prepare('SELECT * FROM subcategorias WHERE idCategoriaPadre = :idCategoria ORDER BY subcategoria');
+$cmd->execute(array(':idCategoria'=> $idCategoria));
+$subcategorias = $cmd->fetchAll();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $idSubcategoria = $_POST['idSubcategoria'];
     $idEstado = $_POST['idEstado'];
@@ -58,24 +60,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $direccionReclamo = $_POST['direccion'];
 
 
-
     if (empty($idSubcategoria) || empty($idEstado) || empty($idReclamo) || empty($nombreVecino) || empty($dni) || empty($telefonoVecino) || empty($correoVecino) || empty($comentario) || empty($direccionReclamo)){
         $notificacion = "Error: No pueden haber campos vacíos";
     }else{
-        if(empty($imgName)){
-            $imgName = $imgActual;
-        }else{
-            $archivo_destino='../../img/'.$_FILES['img-categoria']['name'];
-            move_uploaded_file($imgPost,$archivo_destino);
-        }
+        
     
-        $cmd = $conexion->prepare('UPDATE categorias SET categoria=:categoria,descripcion=:descripcion,imgCategoria=:imgCategoria WHERE idCategoria = :id ');
-        $resultado = $cmd->execute(array(':categoria' => $categoriaNombre,':descripcion' => $descripcion, ':imgCategoria' => $imgName, ':id' => $idCategoria));
+        $cmd = $conexion->prepare('UPDATE reclamos SET idSubcategoria= :idSubcategoria,nombreVecino= :nombreVecino,dni= :dni,direccionReclamo= :direccionReclamo,telefonoVecino= :telefonoVecino,correoVecino= :correoVecino,idEstado= :idEstado,comentario= :comentario WHERE idReclamo = :idReclamo');
+        $resultado = $cmd->execute(array(':idSubcategoria'=>$idSubcategoria, ':nombreVecino'=>$nombreVecino, ':dni'=> $dni, ':direccionReclamo'=> $direccionReclamo, ':telefonoVecino'=> $telefonoVecino, ':correoVecino'=> $correoVecino, ':idEstado'=> $idEstado, ':comentario'=> $comentario, ':idReclamo'=> $idReclamo));
         
         if($resultado){
-            header("location:listar-categoria.php");
+            header("location:listar-reclamo.php");
         }else{
-            $notificacion = "Ha ocurrido un error al dar de alta la categoría";
+            $notificacion = "Ha ocurrido un error al intentar modificar el reclamo";
         }
     
     }
@@ -100,6 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <form action="modificar-reclamo.php" method="POST" class="mx-auto row mt-4" enctype="multipart/form-data">
                 <p class="text-center ">
                     N° de reclamo: <b><?php echo $idReclamo ?></b> - Estado: <b><?php echo $estado ?></b>
+                </p>
+                <p class="text-center ">
+                    Fecha de reclamo: <b><?php echo date("d/m/Y", strtotime($fechaReclamo)) ?></b>  
                 </p>
                 <input type="hidden" class="form-control" id="inputidReclamo" name="idReclamo"  value="<?php echo $idReclamo;?>">
                 <div class="col-md-6">
@@ -219,4 +218,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 
+
+<script>
+    let selectCategoria = document.querySelector('#categoriaPadre');
+    let selectMotivo = document.querySelector('#inputMotivo');
+
+    selectCategoria.addEventListener('change', function(){
+        let idCategoria = this.value;
+        
+        var xhttp = new XMLHttpRequest();
+
+        /* POST*/
+        // 1º -> tres parametros: TIPO DE PETICION, URL A LA CUAL VAMOS A REALIZAR DICHA PETICION, TRUE -> INDICA QUE ES UN PETICION DE TIPO ASICRONA
+        xhttp.open("POST", "../../ajax/listar-motivos.php", true);
+
+        // SE UTILIZA SIEMPRE QUE UTILIZAMOS EL METODO POST
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // ENVIAMOS LA PETICION, Y PASAMOS POR PARAMETRO LOS DATOS
+        xhttp.send("idCat="+idCategoria); 
+
+            /* RESPUESTA RECIBIDA  */
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+           /* let respuesta = JSON.parse(this.responseText); */
+            let respuesta = this.responseText;
+
+            selectMotivo.innerHTML = respuesta;
+          
+            
+            /*
+            selectProvincias.innerHTML = this.responseText;
+            selectProvincias.style.display = 'block';
+                */
+
+            }
+        };
+
+    });
+
+</script>
 <?php include('../../include/footer-adm.php'); ?>
