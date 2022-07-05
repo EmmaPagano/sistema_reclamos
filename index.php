@@ -45,7 +45,7 @@ $categorias = $cmd->fetchAll();
                     <?php
                     foreach ($categorias as $categoria) {
                         echo '<div class="col-md-4 categoria text-center">
-                                <img src="img/'.$categoria["imgCategoria"].'" class="img-fluid categoria-icono" alt="">
+                                <img src="img/'.$categoria["imgCategoria"].'" class="img-fluid categoria-icono" alt="" data-id="'.$categoria['idCategoria'].'">
                                 <p class="categoria-titulo mt-3">'.$categoria["categoria"].'</p>
                                 </div>'
                         ;
@@ -56,37 +56,12 @@ $categorias = $cmd->fetchAll();
         </div>
     </section>
 <!--SECCION SUBCATEGORIAS -->
-    <section class="seccion-subcategorias">
+    <section class="seccion-subcategorias" id="seccionMotivos">
         <div class="container">
             <h2 class="titulo text-center">Elija un motivo</h2>
-            <div class="subcategorias">
-                <div class="sub">
-                    Cable suelto
-                </div>
-                <div class="sub">
-                    Columna caída o por caerse
-                </div>
-                <div class="sub">
-                    Reparación de luminaria
-                </div>
-                <div class="sub">
-                    Cable suelto
-                </div>
-                <div class="sub">
-                    Columna caída o por caerse
-                </div>
-                <div class="sub">
-                    Reparación de luminaria
-                </div>
-                <div class="sub">
-                    Cable suelto
-                </div>
-                <div class="sub">
-                    Columna caída o por caerse
-                </div>
-                <div class="sub">
-                    Reparación de luminaria
-                </div>
+            <div class="subcategorias" id="contenedorMotivos">
+              
+
             </div> 
         </div>
     </section>
@@ -153,5 +128,44 @@ $categorias = $cmd->fetchAll();
 
 <!--JS BOOTSTRAP-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script>
+let seccionMotivos = document.querySelector("#seccionMotivos");
+let contenedorMotivos = document.querySelector("#contenedorMotivos");
+let idIcono = 0;
+let btnIconos = document.querySelectorAll(".categoria-icono");
+btnIconos.forEach(icono => {
+        icono.addEventListener('click', function(){
+        let idCategoria = icono.dataset.id;
+        
+        var xhttp = new XMLHttpRequest();
+
+        /* POST*/
+        // 1º -> tres parametros: TIPO DE PETICION, URL A LA CUAL VAMOS A REALIZAR DICHA PETICION, TRUE -> INDICA QUE ES UN PETICION DE TIPO ASICRONA
+        xhttp.open("POST", "ajax/listar-motivos-index.php", true);
+
+        // SE UTILIZA SIEMPRE QUE UTILIZAMOS EL METODO POST
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // ENVIAMOS LA PETICION, Y PASAMOS POR PARAMETRO LOS DATOS
+        xhttp.send("idCat="+idCategoria); 
+
+            /* RESPUESTA RECIBIDA  */
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+           /* let respuesta = JSON.parse(this.responseText); */
+            let respuesta = this.responseText;
+
+            contenedorMotivos.innerHTML = respuesta;
+
+            }
+        };
+        seccionMotivos.style.display = "block";
+        window.scrollTo(0, document.body.scrollHeight);
+
+    });
+});
+
+</script>
 </body>
 </html>
