@@ -12,7 +12,7 @@ if(!empty($idCategoria)){
     $estructura = '';
 
     foreach ($subcategorias as $motivo) {
-        $estructura .= '<div class="sub" data-idsub="'.$motivo['idSubcategoria'].'">'. $motivo['subcategoria'] .'</div>';
+        $estructura .= '<div class="sub" data-idmotivo="'.$motivo['idSubcategoria'].'" onclick="seleccionMotivo(this)">'. $motivo['subcategoria'] .'</div>';
     }
 }
 

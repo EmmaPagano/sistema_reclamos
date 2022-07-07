@@ -3,6 +3,57 @@ include("include/conexion.php");
 $cmd = $conexion->prepare('SELECT * FROM categorias ORDER BY categoria');
 $cmd->execute();
 $categorias = $cmd->fetchAll();
+
+$cmd = $conexion->prepare('SELECT * FROM calles ORDER BY calle');
+$cmd->execute();
+$calles = $cmd->fetchAll();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $fechaActual = date("Y-m-d");
+    $idCategoria = $_POST["idCategoria"];
+    $idMotivo = $_POST["idMotivo"];
+    $nombre = $_POST["nombre"];
+    $dni = $_POST["dni"];
+    $telefono = $_POST["telefono"];
+    $correo = $_POST["correo"];
+    $calle = $_POST["calle"];
+    $altura = $_POST["altura"];
+    $comentario = $_POST["comentario"];
+
+    if (empty($idCategoria) || empty($idMotivo) || empty($nombre) || empty($dni) || empty($telefono) || empty($correo) || empty($calle) || empty($altura) || empty($comentario)){
+        $notificacion = "Error: No pueden haber campos vacíos";
+    } else {
+        $cmd = $conexion->prepare("INSERT INTO reclamos(idSubcategoria, fechaReclamo, nombreVecino, dni, idCalle, altura, telefonoVecino, correoVecino, idEstado, comentario) VALUES (:idSub, :fecha, :nombre, :dni, :calle, :altura, :telefono, :correo, '1', :comentario)");
+        $resultado = $cmd->execute(array(':idSub' => $idMotivo,':fecha' => $fechaActual, ':nombre' => $nombre, ':dni' => $dni, ':calle' => $calle, ':altura' => $altura, ':telefono' => $telefono, ':correo' => $correo, ':comentario' => $comentario,));
+        
+        if($resultado){
+
+            if(!empty($_FILES['fotos'])){
+                $longitud = (count($_FILES['fotos']['name']) > 3) ? 3 : count($_FILES['fotos']['name']) ;
+                for ($i=0; $i < $longitud ; $i++) { 
+                    $archivo_destino='img/fotos_reclamos/'.$_FILES['fotos']['name'][$i];
+                    move_uploaded_file($_FILES['fotos']['tmp_name'][$i],$archivo_destino);
+
+                    $cmd = $conexion->prepare('SELECT * FROM reclamos ORDER BY idReclamo DESC LIMIT 0,1');
+                    $cmd->execute();
+                    $ultimoReclamo = $cmd->fetch();
+                    $idReclamo = $ultimoReclamo['idReclamo'];
+
+                    $cmd = $conexion->prepare('INSERT INTO fotos_reclamos(urlFoto, idReclamo) VALUES (:url,:idReclamo)');
+                    $cmd->execute(array(':url' => $_FILES['fotos']['name'][$i],':idReclamo' => $idReclamo));
+                }
+            }
+
+            $notificacion = "El reclamo ha sido dada de alta con éxito";
+        }else{
+            $notificacion = "Ha ocurrido un error al dar de alta el reclamo";
+        }
+    }
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -66,46 +117,53 @@ $categorias = $cmd->fetchAll();
         </div>
     </section>
 <!--SECCION CONTACTO -->
-    <section class="seccion-contacto mt-5">
+    <section class="seccion-contacto mt-5" id="seccionForm">
         <div class="container">
             <h2 class="titulo text-center mb-3">Información de contacto</h2>
-            <form class="col-md-6 mx-auto" action="" method="post">
+            <form class="col-md-6 mx-auto" action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="" id="inputCategoria" name="idCategoria">
+                <input type="hidden" value="" id="inputMotivo" name="idMotivo">
                 <div class="mb-3">
                     <label for="inputNombre" class="form-label">Nombre completo</label>
-                    <input type="text" class="form-control" id="inputNombre">
+                    <input type="text" class="form-control" id="inputNombre" name="nombre">
                 </div>
                 <div class="mb-3">
                     <label for="inputDNI" class="form-label">DNI (sin puntos)</label>
-                    <input type="number" class="form-control" id="inputDNI">
+                    <input type="number" class="form-control" id="inputDNI" name="dni">
                 </div>
                 <div class="mb-3">
                     <label for="inputTelefono" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="inputTelefono">
+                    <input type="text" class="form-control" id="inputTelefono" name="telefono">
                 </div>
                 <div class="mb-3">
                     <label for="inputCorreo" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="inputCorreo">
+                    <input type="email" class="form-control" id="inputCorreo" name="correo">
                 </div>
                 <div class="mb-3">
                     <label for="selectCalles" class="form-label">Seleccione su calle</label>
-                    <select class="form-select" id="selectCalles" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select" id="selectCalles" name="calle" aria-label="Default select example" required>
+                        <option selected>Seleccione la calle</option>
+                        <?php 
+                            foreach ($calles as $fila) {
+                                echo '
+                                <option value="'.$fila['idCalle'].'">'.$fila['calle'].' </option>
+                                ';
+                            }
+
+                        ?>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="inputAltura" class="form-label">Altura</label>
-                    <input type="number" class="form-control" id="inputAltura">
+                    <input type="number" class="form-control" id="inputAltura" name="altura">
                 </div>
                 <div class="mb-3">
-                    <label for="formFileMultiple" class="form-label">Adjunte fotos de la consulta si lo desea</label>
-                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    <label for="formFileMultiple" class="form-label">Adjunte fotos de la consulta si lo desea (máximo 3 fotos)</label>
+                    <input class="form-control" type="file" id="formFileMultiple" name="fotos[]" accept="image/*" multiple>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Escriba los detalles de su solicitud. Recuerde incorporar datos relevantes.</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="comentario" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success">
                     Enviar
@@ -132,10 +190,17 @@ $categorias = $cmd->fetchAll();
 let seccionMotivos = document.querySelector("#seccionMotivos");
 let contenedorMotivos = document.querySelector("#contenedorMotivos");
 let idIcono = 0;
+let idCategoria = 0;
+let inputCategoria = document.querySelector("#inputCategoria");
+let inputMotivo = document.querySelector("#inputMotivo");
+let idMotivo = 0;
+let seccionForm = document.querySelector('#seccionForm') ;
 let btnIconos = document.querySelectorAll(".categoria-icono");
 btnIconos.forEach(icono => {
         icono.addEventListener('click', function(){
-        let idCategoria = icono.dataset.id;
+        idCategoria = icono.dataset.id;
+        inputCategoria.value = idCategoria;
+            
         
         var xhttp = new XMLHttpRequest();
 
@@ -161,10 +226,22 @@ btnIconos.forEach(icono => {
             }
         };
         seccionMotivos.style.display = "block";
+        seccionForm.style.display = "none";
+        inputMotivo.value = "";
         window.scrollTo(0, document.body.scrollHeight);
 
     });
 });
+
+
+function seleccionMotivo(elemento) {
+    idMotivo = elemento.dataset.idmotivo;
+    seccionForm.style.display = "block";
+    //alert(document.body.scrollHeight-200);
+    //window.scrollTo(0, document.body.scrollHeight-1000);
+    window.location.href = '#seccionForm';
+    inputMotivo.value = idMotivo;
+}
 
 </script>
 </body>
