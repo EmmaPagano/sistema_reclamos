@@ -73,7 +73,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['busqueda'])){
                     <th scope="col">Fecha</th>
                     <th scope="col">Vecino</th>
                     <th scope="col">Teléfono</th>
-                    <th scope="col">Dirección</th>
                     <th scope="col">Categoría</th>
                     <th scope="col">Motivo</th>
                     <th scope="col">Estado</th>
@@ -89,7 +88,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['busqueda'])){
                         <td>'. date("d/m/Y", strtotime($fila["fechaReclamo"])) .'</td>
                         <td>'.$fila["nombreVecino"].'</td>
                         <td>'.$fila["telefonoVecino"].'</td>
-                        <td>'.$fila["direccionReclamo"].'</td>
                         <td>'.$fila["categoria"].'</td>
                         <td>'.$fila["subcategoria"].'</td>
                         <td>'.$fila["estado"].'</td>

@@ -87,7 +87,7 @@ h1, h2, h3, h4, h5, h6{
 /*ESTILOS FOOTER*/
 footer{
     padding: 2rem 0;
-    margin-top: 2rem;
+    margin-top: 4rem;
     background: #323437;
     ul{
         padding: 0;
@@ -113,3 +113,38 @@ footer{
         }
 }
 /*tw #55acee*/
+
+/*ESTILO MODAL FOOTER*/
+.modal-footer{
+    justify-content: center;
+}
+.modal-body p{
+    color:#000;
+}
+.modal-body b{
+    font-weight: bold;
+    color: #274BCE;
+}
+.modal-footer a{
+    text-decoration: none;
+}
+
+/*BOTONERA*/
+.botonera{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    button{
+        margin: 0 0.5rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        background-color: #274BCE;
+        color: white;
+        &:hover{
+            background-color: #323437;
+            transition: all .5s ease;
+        }
+    }
+}
+
