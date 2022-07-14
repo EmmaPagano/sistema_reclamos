@@ -1,224 +1,377 @@
--- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: sistema_reclamos
--- ------------------------------------------------------
--- Server version	10.4.24-MariaDB
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 14-07-2022 a las 20:38:55
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `calles`
+-- Base de datos: `sistema_reclamos`
 --
 
-DROP TABLE IF EXISTS `calles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `calles`
+--
+
 CREATE TABLE `calles` (
-  `idCalle` int(11) NOT NULL AUTO_INCREMENT,
-  `calle` varchar(250) NOT NULL,
-  PRIMARY KEY (`idCalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idCalle` int(11) NOT NULL,
+  `calle` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `calles`
+-- Volcado de datos para la tabla `calles`
 --
 
-LOCK TABLES `calles` WRITE;
-/*!40000 ALTER TABLE `calles` DISABLE KEYS */;
-INSERT INTO `calles` VALUES (1,'Av. Vaccarezza'),(2,'9 de Julio'),(3,'Raúl Lozza');
-/*!40000 ALTER TABLE `calles` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `calles` (`idCalle`, `calle`) VALUES
+(1, 'Av. Vaccarezza'),
+(2, '9 de Julio'),
+(3, 'Raúl Lozza');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `categorias`
+-- Estructura de tabla para la tabla `categorias`
 --
 
-DROP TABLE IF EXISTS `categorias`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categorias` (
-  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `idCategoria` int(11) NOT NULL,
   `categoria` varchar(250) NOT NULL,
   `descripcion` varchar(300) NOT NULL,
-  `imgCategoria` varchar(300) NOT NULL,
-  PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `imgCategoria` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `categorias`
+-- Volcado de datos para la tabla `categorias`
 --
 
-LOCK TABLES `categorias` WRITE;
-/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Alumbrado','Alumbrado público','alumbrado.png'),(2,'Animales','Animales en general','animales.png'),(3,'Arbolado','Arbolado público','arbolado.png'),(4,'Educación','Educación','educacion.png'),(5,'Espacios públicos','Espacios públicos','espaciospublicos.png'),(6,'Limpieza y recolección','Limpieza y recolección','limpiezayrecoleccion.png'),(7,'Salud','Salud','salud.png');
-/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `categorias` (`idCategoria`, `categoria`, `descripcion`, `imgCategoria`) VALUES
+(1, 'Alumbrado', 'Alumbrado público', 'alumbrado.png'),
+(2, 'Animales', 'Animales en general', 'animales.png'),
+(3, 'Arbolado', 'Arbolado público', 'arbolado.png'),
+(4, 'Educación', 'Educación', 'educacion.png'),
+(5, 'Espacios públicos', 'Espacios públicos', 'espaciospublicos.png'),
+(6, 'Limpieza y recolección', 'Limpieza y recolección', 'limpiezayrecoleccion.png'),
+(7, 'Salud', 'Salud', 'salud.png');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `estados`
+-- Estructura de tabla para la tabla `estados`
 --
 
-DROP TABLE IF EXISTS `estados`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `estados` (
-  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` varchar(250) NOT NULL,
-  PRIMARY KEY (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idEstado` int(11) NOT NULL,
+  `estado` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `estados`
+-- Volcado de datos para la tabla `estados`
 --
 
-LOCK TABLES `estados` WRITE;
-/*!40000 ALTER TABLE `estados` DISABLE KEYS */;
-INSERT INTO `estados` VALUES (1,'Solicitud enviada'),(2,'En proceso de resolución'),(3,'Resuelto');
-/*!40000 ALTER TABLE `estados` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `estados` (`idEstado`, `estado`) VALUES
+(1, 'Solicitud enviada'),
+(2, 'En proceso de resolución'),
+(3, 'Resuelto');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `fotos_reclamos`
+-- Estructura de tabla para la tabla `fotos_reclamos`
 --
 
-DROP TABLE IF EXISTS `fotos_reclamos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fotos_reclamos` (
-  `idFoto` int(11) NOT NULL AUTO_INCREMENT,
+  `idFoto` int(11) NOT NULL,
   `urlFoto` varchar(250) NOT NULL,
-  `idReclamo` int(11) NOT NULL,
-  PRIMARY KEY (`idFoto`),
-  KEY `FK_reclamo` (`idReclamo`),
-  CONSTRAINT `relacion_foto_reclamo` FOREIGN KEY (`idReclamo`) REFERENCES `reclamos` (`idReclamo`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idReclamo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fotos_reclamos`
+-- Volcado de datos para la tabla `fotos_reclamos`
 --
 
-LOCK TABLES `fotos_reclamos` WRITE;
-/*!40000 ALTER TABLE `fotos_reclamos` DISABLE KEYS */;
-INSERT INTO `fotos_reclamos` VALUES (1,'2.jpg',20002),(2,'3.jpg',20002),(5,'1.jpg',20004),(6,'2.jpg',20004),(7,'3.jpg',20004);
-/*!40000 ALTER TABLE `fotos_reclamos` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `fotos_reclamos` (`idFoto`, `urlFoto`, `idReclamo`) VALUES
+(1, '2.jpg', 20002),
+(2, '3.jpg', 20002),
+(5, '1.jpg', 20004),
+(6, '2.jpg', 20004),
+(7, '3.jpg', 20004),
+(8, 'ans.jpg', 20005),
+(9, 'EJ.jpg', 20005),
+(10, 'historialSV.jpg', 20005),
+(11, 'suma de matrices.jpg', 20006),
+(12, 'ans.jpg', 20007),
+(13, 'ans.jpg', 20008),
+(14, 'ans.jpg', 20009),
+(15, '1.jpg', 20010),
+(16, '2.jpg', 20010),
+(17, '1.jpg', 20011),
+(18, '2.jpg', 20011),
+(19, '1.jpg', 20012),
+(20, '2.jpg', 20012),
+(21, '1.jpg', 20013),
+(22, '2.jpg', 20013),
+(23, '1.jpg', 20014),
+(24, '2.jpg', 20014),
+(25, '1.jpg', 20015),
+(26, '2.jpg', 20015),
+(27, '1.jpg', 20016),
+(28, '2.jpg', 20016),
+(29, '1.jpg', 20017),
+(30, '2.jpg', 20017),
+(31, '1.jpg', 20018),
+(32, '2.jpg', 20018),
+(33, '1.jpg', 20019),
+(34, '2.jpg', 20019),
+(35, '1.jpg', 20020),
+(36, '2.jpg', 20020),
+(37, '1.jpg', 20021),
+(38, '2.jpg', 20021);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `reclamos`
+-- Estructura de tabla para la tabla `reclamos`
 --
 
-DROP TABLE IF EXISTS `reclamos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reclamos` (
-  `idReclamo` int(11) NOT NULL AUTO_INCREMENT,
+  `idReclamo` int(11) NOT NULL,
   `idSubcategoria` int(11) NOT NULL,
   `fechaReclamo` date NOT NULL,
   `nombreVecino` varchar(250) NOT NULL,
   `dni` int(8) NOT NULL,
   `idCalle` int(11) NOT NULL,
   `altura` int(11) NOT NULL,
-  `direccionReclamo` varchar(250) NOT NULL,
   `telefonoVecino` varchar(250) NOT NULL,
   `correoVecino` varchar(250) NOT NULL,
   `idEstado` int(11) NOT NULL,
-  `comentario` text NOT NULL,
-  PRIMARY KEY (`idReclamo`),
-  KEY `FK_estado` (`idEstado`),
-  KEY `FK_subcategoria` (`idSubcategoria`),
-  KEY `FK_calle` (`idCalle`),
-  CONSTRAINT `relacion_reclamo_calle` FOREIGN KEY (`idCalle`) REFERENCES `calles` (`idCalle`),
-  CONSTRAINT `relacion_reclamo_estado` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`idEstado`),
-  CONSTRAINT `relacion_reclamo_subcategoria` FOREIGN KEY (`idSubcategoria`) REFERENCES `subcategorias` (`idSubcategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=20005 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `comentario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `reclamos`
+-- Volcado de datos para la tabla `reclamos`
 --
 
-LOCK TABLES `reclamos` WRITE;
-/*!40000 ALTER TABLE `reclamos` DISABLE KEYS */;
-INSERT INTO `reclamos` VALUES (20002,7,'2022-06-16','juan',0,1,0,'av alberti 1111','11 22334455','ddd@hhhhhh',3,'llllllllllllllllllllllllllllll'),(20003,11,'2022-06-15','agustina gonzales',35000111,2,0,'av falsa 999999999999999','2346 150000000000000','agustina@gmail.com.ar',1,'////////////////////////////////////////////7'),(20004,13,'2022-05-11','Francisco JJJJJ',10849990,3,0,'Circ Gonzalez 123','011 15666666','fran@hotmaill.com',2,'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
-/*!40000 ALTER TABLE `reclamos` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `reclamos` (`idReclamo`, `idSubcategoria`, `fechaReclamo`, `nombreVecino`, `dni`, `idCalle`, `altura`, `telefonoVecino`, `correoVecino`, `idEstado`, `comentario`) VALUES
+(20002, 7, '2022-06-16', 'juan', 0, 1, 0, '11 22334455', 'ddd@hhhhhh', 3, 'llllllllllllllllllllllllllllll'),
+(20003, 11, '2022-06-15', 'agustina gonzales', 35000111, 2, 0, '2346 150000000000000', 'agustina@gmail.com.ar', 1, '////////////////////////////////////////////7'),
+(20004, 13, '2022-05-11', 'Francisco JJJJJ', 10849990, 3, 0, '011 15666666', 'fran@hotmaill.com', 2, 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'),
+(20005, 11, '2022-07-08', 'Juan Perez', 45665874, 2, 123456, '23546456454', 'juan@gmail.com', 1, 'Consulta castración'),
+(20006, 10, '2022-07-12', 'Emmanuel', 35101107, 3, 164, '2346418590', 'emmanuel.pagano@gmail.com', 1, 'aaaaaaaaaaaaaaaa'),
+(20007, 10, '2022-07-12', 'Sergio Emmanuel Pagano', 35101107, 3, 164, '2346418590', 'emmanuel.pagano@gmail.com', 1, 'wwwwwwwwwwwwwwwwwwwww'),
+(20008, 10, '2022-07-12', 'Sergio Emmanuel Pagano', 35101107, 3, 164, '2346418590', 'emmanuel.pagano@gmail.com', 1, 'wwwwwwwwwwwwwwwwwwwww'),
+(20009, 10, '2022-07-12', 'Sergio Emmanuel Pagano', 35101107, 3, 164, '2346418590', 'emmanuel.pagano@gmail.com', 1, 'wwwwwwwwwwwwwwwwwwwww'),
+(20010, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20011, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20012, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20013, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20014, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20015, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20016, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20017, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20018, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20019, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20020, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd'),
+(20021, 10, '2022-07-12', 'Emmanuel', 35101107, 2, 123123, '11', 'emmanuel.pagano@gmail.com', 1, 'asdasd');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `subcategorias`
+-- Estructura de tabla para la tabla `subcategorias`
 --
 
-DROP TABLE IF EXISTS `subcategorias`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subcategorias` (
-  `idSubcategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `idSubcategoria` int(11) NOT NULL,
   `subcategoria` varchar(250) NOT NULL,
   `descripcionSub` varchar(250) NOT NULL,
-  `idCategoriaPadre` int(11) NOT NULL,
-  PRIMARY KEY (`idSubcategoria`),
-  KEY `FK_categoriaPadre` (`idCategoriaPadre`),
-  CONSTRAINT `relacion_subcategoria_categoria` FOREIGN KEY (`idCategoriaPadre`) REFERENCES `categorias` (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idCategoriaPadre` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `subcategorias`
+-- Volcado de datos para la tabla `subcategorias`
 --
 
-LOCK TABLES `subcategorias` WRITE;
-/*!40000 ALTER TABLE `subcategorias` DISABLE KEYS */;
-INSERT INTO `subcategorias` VALUES (1,'Cable suelto','Cable suelto',1),(2,'Columna caída o por caerse','Columna caída o por caerse',1),(3,'Reparación de luminaria','Reparación de luminaria',1),(4,'Poda vía pública','Poda vía pública',3),(5,'Árbol seco','Árbol seco',3),(6,'Barrido','Barrido',6),(7,'Recolección de residuos','Recolección de residuos',6),(8,'Terrenos','Terrenos',6),(9,'EcoPlan','EcoPlan',6),(10,'Animales en la vía pública','Animales en la vía pública',2),(11,'Castración','Castración',2),(12,'Parque municipal','Parque municipal',5),(13,'Plazas','Plazas',5),(14,'Reparación de juegos','Reparación de juegos',5),(15,'Hospital municipal','Hospital municipal',7),(16,'Salitas','Salitas',7),(17,'Vacunación','Vacunación',7),(18,'Casa del estudiante','Casa del estudiante',4),(19,'Becas','Becas',4),(21,'Transporte gratuito a Chivilcoy','Transporte gratuito a Chivilcoy',4),(22,'Punto digital','Punto digital',4),(23,'Talleres culturales','Talleres culturales',4);
-/*!40000 ALTER TABLE `subcategorias` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `subcategorias` (`idSubcategoria`, `subcategoria`, `descripcionSub`, `idCategoriaPadre`) VALUES
+(1, 'Cable suelto', 'Cable suelto', 1),
+(2, 'Columna caída o por caerse', 'Columna caída o por caerse', 1),
+(3, 'Reparación de luminaria', 'Reparación de luminaria', 1),
+(4, 'Poda vía pública', 'Poda vía pública', 3),
+(5, 'Árbol seco', 'Árbol seco', 3),
+(6, 'Barrido', 'Barrido', 6),
+(7, 'Recolección de residuos', 'Recolección de residuos', 6),
+(8, 'Terrenos', 'Terrenos', 6),
+(9, 'EcoPlan', 'EcoPlan', 6),
+(10, 'Animales en la vía pública', 'Animales en la vía pública', 2),
+(11, 'Castración', 'Castración', 2),
+(12, 'Parque municipal', 'Parque municipal', 5),
+(13, 'Plazas', 'Plazas', 5),
+(14, 'Reparación de juegos', 'Reparación de juegos', 5),
+(15, 'Hospital municipal', 'Hospital municipal', 7),
+(16, 'Salitas', 'Salitas', 7),
+(17, 'Vacunación', 'Vacunación', 7),
+(18, 'Casa del estudiante', 'Casa del estudiante', 4),
+(19, 'Becas', 'Becas', 4),
+(21, 'Transporte gratuito a Chivilcoy', 'Transporte gratuito a Chivilcoy', 4),
+(22, 'Punto digital', 'Punto digital', 4),
+(23, 'Talleres culturales', 'Talleres culturales', 4);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuarios` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(11) NOT NULL,
   `nombreCompleto` varchar(250) NOT NULL,
   `dni` int(8) NOT NULL,
   `correo` varchar(250) NOT NULL,
   `telefono` varchar(50) NOT NULL,
-  `password` varchar(300) NOT NULL,
-  PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `password` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Sergio Emmanuel Pagano',35101107,'emmanuel.pagano@gmail.com','2346418590','123456');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `usuarios` (`idUsuario`, `nombreCompleto`, `dni`, `correo`, `telefono`, `password`) VALUES
+(1, 'Sergio Emmanuel Pagano', 35101107, 'emmanuel.pagano@gmail.com', '2346418590', '123456');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `calles`
+--
+ALTER TABLE `calles`
+  ADD PRIMARY KEY (`idCalle`);
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`idCategoria`);
+
+--
+-- Indices de la tabla `estados`
+--
+ALTER TABLE `estados`
+  ADD PRIMARY KEY (`idEstado`);
+
+--
+-- Indices de la tabla `fotos_reclamos`
+--
+ALTER TABLE `fotos_reclamos`
+  ADD PRIMARY KEY (`idFoto`),
+  ADD KEY `FK_reclamo` (`idReclamo`);
+
+--
+-- Indices de la tabla `reclamos`
+--
+ALTER TABLE `reclamos`
+  ADD PRIMARY KEY (`idReclamo`),
+  ADD KEY `FK_estado` (`idEstado`),
+  ADD KEY `FK_subcategoria` (`idSubcategoria`),
+  ADD KEY `FK_calle` (`idCalle`);
+
+--
+-- Indices de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`idSubcategoria`),
+  ADD KEY `FK_categoriaPadre` (`idCategoriaPadre`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `calles`
+--
+ALTER TABLE `calles`
+  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `fotos_reclamos`
+--
+ALTER TABLE `fotos_reclamos`
+  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT de la tabla `reclamos`
+--
+ALTER TABLE `reclamos`
+  MODIFY `idReclamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20022;
+
+--
+-- AUTO_INCREMENT de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  MODIFY `idSubcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `fotos_reclamos`
+--
+ALTER TABLE `fotos_reclamos`
+  ADD CONSTRAINT `relacion_foto_reclamo` FOREIGN KEY (`idReclamo`) REFERENCES `reclamos` (`idReclamo`);
+
+--
+-- Filtros para la tabla `reclamos`
+--
+ALTER TABLE `reclamos`
+  ADD CONSTRAINT `relacion_reclamo_calle` FOREIGN KEY (`idCalle`) REFERENCES `calles` (`idCalle`),
+  ADD CONSTRAINT `relacion_reclamo_estado` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`idEstado`),
+  ADD CONSTRAINT `relacion_reclamo_subcategoria` FOREIGN KEY (`idSubcategoria`) REFERENCES `subcategorias` (`idSubcategoria`);
+
+--
+-- Filtros para la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD CONSTRAINT `relacion_subcategoria_categoria` FOREIGN KEY (`idCategoriaPadre`) REFERENCES `categorias` (`idCategoria`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-06-30 15:49:30
