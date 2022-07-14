@@ -13,21 +13,21 @@ if(!isset($_SESSION['idUser'])){
     <h2 class="text-center mb-5 text-white mt-5 pt-5">Panel administrativo</h2>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 text-center">
+            <div class="col-md-4 text-center mb-3">
                 <h3 class="mb-3 text-white">Categorías</h3>
                 <div class="botonera d-flex justify-content-center">
                     <a class="btn btn-outline-secondary me-3" href="categorias/alta-categoria.php">Nuevo</a>
                     <a class="btn btn-outline-secondary ms-3" href="categorias/listar-categoria.php">Listar</a>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-4 text-center mb-3">
                 <h3 class="mb-3 text-white">Subcategorías</h3>
                 <div class="botonera d-flex justify-content-center">
                     <a class="btn btn-outline-secondary me-3" href="subcategorias/alta-subcategoria.php">Nuevo</a>
                     <a class="btn btn-outline-secondary ms-3" href="subcategorias/listar-subcategoria.php">Listar</a>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-4 text-center mb-3">
                 <h3 class="mb-3 text-white">Reclamos</h3>
                 <div class="botonera d-flex justify-content-center">
                     <a class="btn btn-outline-secondary me-3" href="">Nuevo</a>

@@ -37,10 +37,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['busqueda'])){
             <table class="table table-striped">
                 <thead>
                     <tr>
-                    <th scope="col">Imagen</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Acción</th>
+                    <th scope="col" class="d-none d-md-block text-center">Imagen</th>
+                    <th class="text-center" scope="col">Categoria</th>
+                    <th class="text-center" scope="col">Descripción</th>
+                    <th class="text-center" scope="col">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +48,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['busqueda'])){
                     foreach ($categorias as $fila) {
                         echo '                    
                         <tr>
-                        <td><img src="../../img/'.$fila["imgCategoria"].'" alt=""></td>
-                        <td>'.$fila["categoria"].'</td>
-                        <td>'.$fila["descripcion"].'</td>
-                        <td>
+                        <td class="d-none d-md-block"><img src="../../img/'.$fila["imgCategoria"].'" alt=""></td>
+                        <td class="text-center"><img src="../../img/'.$fila["imgCategoria"].'" style="max-width: 30px; display:block; margin:auto" class="d-md-none">'.$fila["categoria"].'</td>
+                        <td class="text-center">'.$fila["descripcion"].'</td>
+                        <td class="text-center">
                             <a href="baja-categoria.php?id='.$fila["idCategoria"].'" class="btn btn-danger">Eliminar</a>
                             <a href="modificar-categoria.php?id='.$fila["idCategoria"].'" class="btn btn-secondary">Modificar</a>
                         </td>

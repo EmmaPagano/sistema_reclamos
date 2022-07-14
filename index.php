@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if (empty($idCategoria) || empty($idMotivo) || empty($nombre) || empty($dni) || empty($telefono) || empty($correo) || empty($calle) || empty($altura) || empty($comentario)){
         $notificacion = "Error: No pueden haber campos vacíos";
+        $banderaJS = true;
     } else {
         $cmd = $conexion->prepare("INSERT INTO reclamos(idSubcategoria, fechaReclamo, nombreVecino, dni, idCalle, altura, telefonoVecino, correoVecino, idEstado, comentario) VALUES (:idSub, :fecha, :nombre, :dni, :calle, :altura, :telefono, :correo, '1', :comentario)");
         $resultado = $cmd->execute(array(':idSub' => $idMotivo,':fecha' => $fechaActual, ':nombre' => $nombre, ':dni' => $dni, ':calle' => $calle, ':altura' => $altura, ':telefono' => $telefono, ':correo' => $correo, ':comentario' => $comentario,));
@@ -57,9 +58,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 }
             }
 
+                        // INDICO EL DESTINATARIO
+                        $email_to = $correo;
+                        // ASUNTO DEL CORREO
+                        $email_subject = "Carga de reclamo - Municipalidad de Alberti";
+                        // REMITENTE
+                        $email_from="info@emmapagano.online";
+                        // ARMO EL MENSAJE O EL CUERPO DEL CORREO
+                        $email_message = "<b>Detalles de la carga del reclamo:</b><br><br>";
+                        $email_message .= "<b>Nombre</b>: " . $nombre . "<br>";
+                        $email_message .= "<b>E-mail</b>: " . $correo. "<br>";
+                        $email_message .= "<b>Telefono</b>: " . $telefono . "<br>";
+                        $email_message .= "<b>N° de reclamo</b>: " . $idReclamo . "<br><br>";
+              
+              
+                    // ENCABEZADOS PARA BRINDAR INFORMACION EXTRA SOBRE EL CORREO A ENVIAR (TIPO DE CONTENIDO, CODIFICACION DE CARACTERES, ETC)
+              
+                        $headers = 'From: '.$email_from."\r\n".
+                        'Reply-To: '.$email_from."\r\n" .
+                        'Content-Type: text/html; charset=utf-8\r\n'.
+                        'X-Mailer: PHP/' . phpversion();
+            
+                        // UNA VEZ ARMADAS MIS VARIABLES, EJECUTO LA FUNCION MAIL 
+                        if (mail($email_to, $email_subject, $email_message, $headers)){
+                            $notificacion = "El mensaje ha sido enviado con éxito!";
+                        }else {
+                            $notificacion = "Ha ocurrido un error, el reclamo no pudo enviarse. Por favor vuelva a intentarlo";
+                        }
          
         }else{
             $notificacion = "Ha ocurrido un error al dar de alta el reclamo";
+            $banderaJS = true;
         }
     }
 
@@ -102,16 +131,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <main>
     <div class="container">
         <div class="botonera">
-            <button class="btnNuevo">
+            <button class="btnNuevo mb-3" id="btnNuevo">
             Cargar nuevo reclamo/inquietud
             </button>
-            <button class="btnConsulta">
+            <button class="btnConsulta mb-3" id="btnConsulta">
             Consultar estado de su reclamo/inquietud    
             </button>
         </div>
 
     
-    <section class="contenedor-reclamo d-none" id="contenedorReclamo">
+    <section class="contenedor-reclamo mt-4" id="contenedorReclamo">
         <section class="seccion-reclamo py-4">
             <div class="container">
                 <h2 class="titulo text-center">Elija una categoría</h2>
@@ -188,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Escriba los detalles de su solicitud. Recuerde incorporar datos relevantes.</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="comentario" rows="3"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="comentario" rows="6"></textarea>
                     </div>
                     <button type="submit" class="btn btn-success">
                         Enviar
@@ -197,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
         </section>
     </section>
-<section class="contenedor-busqueda d-none" id="contenedorBusqueda">
+<section class="contenedor-busqueda mt-4" style="<?php echo (isset($busqueda)) ? "display: block" : "" ?>" id="contenedorBusqueda">
         <h2 class="text-center">Consulte por n° de reclamo</h2>
         <div>
             <form action="index.php" method="GET" class="mt-3">
@@ -308,11 +337,17 @@ let seccionForm = document.querySelector('#seccionForm') ;
 let btnIconos = document.querySelectorAll(".categoria-icono");
 
 btnNuevo.addEventListener('click', function(){
+    contenedorReclamo.style.display = "block";
+    contenedorBusqueda.style.display = "none";
+    window.location.href = '#contenedorReclamo';
 
 })
 
 btnConsulta.addEventListener('click', function(){
-    
+    contenedorReclamo.style.display = "none";
+    contenedorBusqueda.style.display = "block";
+    window.location.href = '#contenedorBusqueda';
+
 })
 
 btnIconos.forEach(icono => {
@@ -344,6 +379,7 @@ btnIconos.forEach(icono => {
 
             }
         };
+
         seccionMotivos.style.display = "block";
         seccionForm.style.display = "none";
         inputMotivo.value = "";
@@ -377,7 +413,10 @@ function seleccionMotivo(elemento) {
         }
     });
 
-
+    var banderaBusqueda = '<?php echo (isset($busqueda)) ? true : false ;?>'
+    if(banderaBusqueda){
+        window.location.href = '#contenedorBusqueda';
+    }
 </script>
 </body>
 </html>

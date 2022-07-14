@@ -13,7 +13,10 @@ $cmd = $conexion->prepare('SELECT * FROM categorias ORDER BY categoria');
 $cmd->execute();
 $categorias = $cmd->fetchAll();
 
-
+//Carga de calles
+$cmd = $conexion->prepare('SELECT * FROM calles ORDER BY calle');
+$cmd->execute();
+$calles = $cmd->fetchAll();
 
 //Carga de estados base de datos
 $cmd = $conexion->prepare('SELECT * FROM estados ORDER BY idEstado');
@@ -29,10 +32,11 @@ if(isset($_GET['id'])){
     $fechaReclamo = $reclamo['fechaReclamo'];
     $nombreVecino = $reclamo['nombreVecino'];
     $dni = $reclamo['dni'];
-    $direccionReclamo = $reclamo['direccionReclamo'];
     $telefonoVecino = $reclamo['telefonoVecino'];
     $correoVecino = $reclamo['correoVecino'];
     $idEstado = $reclamo['idEstado'];
+    $idCalle = $reclamo['idCalle'];
+    $altura = $reclamo['altura'];
     $estado = $reclamo['estado'];
     $comentario = $reclamo['comentario'];
     $idCategoria = $reclamo['idCategoria'];
@@ -57,16 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $telefonoVecino = $_POST['telefono'];
     $correoVecino = $_POST['correo'];
     $comentario = $_POST['comentario'];
-    $direccionReclamo = $_POST['direccion'];
+    $idCalle = $_POST['calle'];
+    $altura = $_POST['altura'];
 
 
-    if (empty($idSubcategoria) || empty($idEstado) || empty($idReclamo) || empty($nombreVecino) || empty($dni) || empty($telefonoVecino) || empty($correoVecino) || empty($comentario) || empty($direccionReclamo)){
+
+    if (empty($idSubcategoria) || empty($idEstado) || empty($idReclamo) || empty($nombreVecino) || empty($dni) || empty($telefonoVecino) || empty($correoVecino) || empty($comentario) || empty($idCalle)){
         $notificacion = "Error: No pueden haber campos vacíos";
     }else{
         
     
-        $cmd = $conexion->prepare('UPDATE reclamos SET idSubcategoria= :idSubcategoria,nombreVecino= :nombreVecino,dni= :dni,direccionReclamo= :direccionReclamo,telefonoVecino= :telefonoVecino,correoVecino= :correoVecino,idEstado= :idEstado,comentario= :comentario WHERE idReclamo = :idReclamo');
-        $resultado = $cmd->execute(array(':idSubcategoria'=>$idSubcategoria, ':nombreVecino'=>$nombreVecino, ':dni'=> $dni, ':direccionReclamo'=> $direccionReclamo, ':telefonoVecino'=> $telefonoVecino, ':correoVecino'=> $correoVecino, ':idEstado'=> $idEstado, ':comentario'=> $comentario, ':idReclamo'=> $idReclamo));
+        $cmd = $conexion->prepare('UPDATE reclamos SET idSubcategoria= :idSubcategoria,nombreVecino= :nombreVecino,dni= :dni,idCalle= :idCalle, altura= :altura, telefonoVecino= :telefonoVecino,correoVecino= :correoVecino,idEstado= :idEstado,comentario= :comentario WHERE idReclamo = :idReclamo');
+        $resultado = $cmd->execute(array(':idSubcategoria'=>$idSubcategoria, ':nombreVecino'=>$nombreVecino, ':dni'=> $dni, ':idCalle'=> $idCalle, ':altura'=> $altura, ':telefonoVecino'=> $telefonoVecino, ':correoVecino'=> $correoVecino, ':idEstado'=> $idEstado, ':comentario'=> $comentario, ':idReclamo'=> $idReclamo));
         
         if($resultado){
             header("location:listar-reclamo.php");
@@ -165,8 +171,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </select>
                 </div>
                     <div class="mb-3">
-                        <label for="inputDireccion" class="form-label" class="form-label">Dirección reclamo</label>
-                        <input type="text" class="form-control" id="inputDireccion" name="direccion"  value="<?php echo $direccionReclamo;?>">
+                    <label for="selectCalles" class="form-label">Seleccione su calle</label>
+                        <select class="form-select" id="selectCalles" name="calle" aria-label="Default select example" required>
+                            <option selected>Seleccione la calle</option>
+                            <?php 
+                                foreach ($calles as $fila) {
+                                   
+                                    if($fila['idCalle']==$idCalle){
+                                        echo '
+                                        <option value="'.$fila['idCalle'].'" selected>'.$fila['calle'].' </option>
+                                        ';
+                                    }else{
+                                        echo '
+                                        <option value="'.$fila['idCalle'].'">'.$fila['calle'].' </option>
+                                        ';
+                                    }
+    
+                                }
+
+                            ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputAltura" class="form-label">Altura</label>
+                        <input type="number" class="form-control" id="inputAltura" name="altura" value="<?php echo $altura;?>">
                     </div>
                     <div class="mb-3">
                     <label for="inputEstado" class="form-label" >Estado</label>
